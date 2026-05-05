@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design tokens ──────────────────────────────────────────── */
+
+/* Dark mode — default (no data-theme needed) */
+:root {
+  --bg:               #000000;
+  --bg-alt:           rgba(255, 255, 255, 0.018);
+  --text:             #ffffff;
+  --text-muted:       rgba(255, 255, 255, 0.60);
+  --text-dim:         rgba(255, 255, 255, 0.45);
+  --text-subtle:      rgba(255, 255, 255, 0.30);
+  --border:           rgba(255, 255, 255, 0.10);
+  --border-strong:    rgba(255, 255, 255, 0.18);
+  --card-bg:          rgba(255, 255, 255, 0.06);
+  --card-hover-bg:    rgba(255, 255, 255, 0.09);
+  --card-hover-border: rgba(28, 217, 142, 0.45);
+  --nav-bg:           rgba(10, 10, 15, 0.35);
+  --accent:           rgb(28, 217, 142);
+  --accent-bg:        rgba(28, 217, 142, 0.12);
+  --accent-border:    rgba(28, 217, 142, 0.25);
+  --accent-glow:      rgba(28, 217, 142, 0.10);
+  --accent-glow-strong: rgba(28, 217, 142, 0.30);
+  --dot-color:        rgba(255, 255, 255, 0.80);
+  --shadow:           0 8px 32px rgba(0, 0, 0, 0.37), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  --shadow-hover:     0 18px 40px -12px rgba(28, 217, 142, 0.35);
+}
+
+/* Light mode */
+[data-theme="light"] {
+  --bg:               #f2f4f8;
+  --bg-alt:           #ffffff;
+  --text:             #0c0e14;
+  --text-muted:       rgba(12, 14, 20, 0.62);
+  --text-dim:         rgba(12, 14, 20, 0.46);
+  --text-subtle:      rgba(12, 14, 20, 0.32);
+  --border:           rgba(12, 14, 20, 0.09);
+  --border-strong:    rgba(12, 14, 20, 0.15);
+  --card-bg:          rgba(255, 255, 255, 0.80);
+  --card-hover-bg:    rgba(255, 255, 255, 1);
+  --card-hover-border: rgba(14, 160, 95, 0.40);
+  --nav-bg:           rgba(242, 244, 248, 0.90);
+  --accent:           rgb(14, 160, 95);
+  --accent-bg:        rgba(14, 160, 95, 0.10);
+  --accent-border:    rgba(14, 160, 95, 0.22);
+  --accent-glow:      rgba(14, 160, 95, 0.07);
+  --accent-glow-strong: rgba(14, 160, 95, 0.20);
+  --dot-color:        rgba(12, 14, 20, 0.80);
+  --shadow:           0 4px 20px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --shadow-hover:     0 16px 36px -10px rgba(14, 160, 95, 0.25);
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+
+* { box-sizing: border-box; }
+
+html, body {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Scroll margin so fixed nav doesn't cover section tops */
+[id] { scroll-margin-top: 84px; }
+
+::selection {
+  background: var(--accent-bg);
+  color: var(--text);
+}
+
+/* ─── Glassmorphism utilities ────────────────────────────────── */
+@layer components {
+
+  .glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--border-strong);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-nav {
+    background: var(--nav-bg);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .glass-service {
+    background: var(--card-bg);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    transition:
+      transform 0.35s ease,
+      box-shadow 0.35s ease,
+      border-color 0.35s ease,
+      background 0.35s ease;
+  }
+
+  .glass-service:hover {
+    transform: translateY(-6px);
+    border-color: var(--card-hover-border);
+    background: var(--card-hover-bg);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .btn-primary {
+    background-color: var(--accent);
+    color: #fff;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px -8px var(--accent-glow-strong);
+    filter: brightness(1.05);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--card-bg);
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+
+  /* Theme-aware text helpers */
+  .text-theme        { color: var(--text); }
+  .text-theme-muted  { color: var(--text-muted); }
+  .text-theme-dim    { color: var(--text-dim); }
+  .text-theme-subtle { color: var(--text-subtle); }
+  .text-accent       { color: var(--accent); }
+  .border-theme      { border-color: var(--border); }
+  .bg-theme          { background: var(--bg); }
+  .bg-theme-alt      { background: var(--bg-alt); }
+}
+
+/* Smooth background image cross-fade */
+.bg-fade { transition: opacity 1.5s ease-in-out; }
